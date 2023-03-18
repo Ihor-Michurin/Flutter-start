@@ -8,208 +8,178 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: InstagramClone(),
+      title: 'Flutter Scaffold Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Scaffold Example'),
     );
   }
 }
 
-class InstagramClone extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    PageOne(),
+    PageTwo(),
+    PageThree(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: Icon(Icons.camera_alt_outlined),
-        title: Image.network(
-          'https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png',
-          height: 40.0,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.live_tv),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {},
-          ),
-        ],
+        title: Text(widget.title),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Post header
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://i.pravatar.cc/150?img=$index'),
-                                radius: 16.0,
-                              ),
-                              SizedBox(width: 8.0),
-                              Text(
-                                'Username',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.more_vert),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Post image
-                    Image.network(
-                      'https://picsum.photos/id/$index/400',
-                      fit: BoxFit.cover,
-                      height: 350.0,
-                    ),
-                    // Post actions
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.favorite_border),
-                                onPressed: () {},
-                              ),
-                              SizedBox(width: 8.0),
-                              IconButton(
-                                icon: Icon(Icons.chat_bubble_outline),
-                                onPressed: () {},
-                              ),
-                              SizedBox(width: 8.0),
-                              IconButton(
-                                icon: Icon(Icons.send),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.bookmark_border),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Post likes
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        '1,234 likes',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    // Post caption
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black),
-                          children: [
-                            TextSpan(
-                              text: 'Username',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: ' '),
-                            TextSpan(
-                              text:
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu nisi quis enim ultrices suscipit.',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // Post comments
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://i.pravatar.cc/150?img=$index'),
-                            radius: 16.0,
-                          ),
-                          SizedBox(width: 8.0),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Add a comment...',
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Post timestamp
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                      child: Text(
-                        '10 minutes ago',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                    // Divider between posts
-                    Divider(),
-                  ],
-                );
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Page One'),
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+                Navigator.pop(context);
               },
             ),
-          ),
-        ],
+            ListTile(
+              title: Text('Page Two'),
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 1;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Page Three'),
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 2;
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: _pages[_selectedIndex],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Page One',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: 'Page Two',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_outlined),
-            label: 'Add',
+            icon: Icon(Icons.person),
+            label: 'Page Three',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Likes',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=10'),
-              radius: 14.0,
+        ],
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class PageOne extends StatelessWidget {
+  const PageOne({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blue,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Hero(
+            tag: 'imageTag',
+            child: Image.network(
+              'https://via.placeholder.com/150',
+              width: 150,
             ),
-            label: 'Profile',
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Page One',
+            style: TextStyle(fontSize: 30, color: Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PageTwo extends StatelessWidget {
+  const PageTwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      child: Center(
+        child: Text(
+          'Page Two',
+          style: TextStyle(fontSize: 30, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class PageThree extends StatelessWidget {
+  const PageThree({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.orange,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Hero(
+            tag: 'imageTag',
+            child: Image.network(
+              'https://via.placeholder.com/150',
+              width: 150,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Page Three',
+            style: TextStyle(fontSize: 30, color: Colors.white),
           ),
         ],
       ),
