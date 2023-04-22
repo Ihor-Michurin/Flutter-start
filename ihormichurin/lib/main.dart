@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/namedNavigation': (context) => const NamedNavigationPage(),
-        '/parameterizedWidget': (context) => const ParameterizedWidgetPage(arguments: {},),
+        '/parameterizedWidget': (context) =>
+        const ParameterizedWidgetPage(arguments: {}),
         '/nestedNavigation': (context) => const NestedNavigationPage(),
       },
     );
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,8 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WidgetByClassNamePage()),
+                  MaterialPageRoute(
+                      builder: (context) => const WidgetByClassNamePage()),
                 );
               },
               child: const Text('Go to widget by class name'),
@@ -75,7 +77,7 @@ class HomePage extends StatelessWidget {
 }
 
 class WidgetByClassNamePage extends StatelessWidget {
-  const WidgetByClassNamePage({super.key});
+  const WidgetByClassNamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,7 @@ class WidgetByClassNamePage extends StatelessWidget {
 }
 
 class NamedNavigationPage extends StatelessWidget {
-  const NamedNavigationPage({super.key});
+  const NamedNavigationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +121,7 @@ class NamedNavigationPage extends StatelessWidget {
 class ParameterizedWidgetPage extends StatelessWidget {
   final Map<String, dynamic> arguments;
 
-  const ParameterizedWidgetPage({super.key, required this.arguments});
+  const ParameterizedWidgetPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +149,7 @@ class ParameterizedWidgetPage extends StatelessWidget {
 }
 
 class NestedNavigationPage extends StatefulWidget {
-  const NestedNavigationPage({super.key});
+  const NestedNavigationPage({Key? key}) : super(key: key);
 
   @override
   _NestedNavigationPageState createState() => _NestedNavigationPageState();
@@ -155,7 +157,10 @@ class NestedNavigationPage extends StatefulWidget {
 
 class _NestedNavigationPageState extends State<NestedNavigationPage> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = [    const NestedPage1(),    const NestedPage2(),  ];
+  final List<Widget> _pages = [
+    const NestedPage1(),
+    const NestedPage2(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -169,7 +174,10 @@ class _NestedNavigationPageState extends State<NestedNavigationPage> {
       appBar: AppBar(
         title: const Text('Nested Navigation'),
       ),
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -189,7 +197,7 @@ class _NestedNavigationPageState extends State<NestedNavigationPage> {
 }
 
 class NestedPage1 extends StatelessWidget {
-  const NestedPage1({super.key});
+  const NestedPage1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +208,7 @@ class NestedPage1 extends StatelessWidget {
 }
 
 class NestedPage2 extends StatelessWidget {
-  const NestedPage2({super.key});
+  const NestedPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
